@@ -1,0 +1,19 @@
+# Versão do Docker Compose. 'services' é a chave principal.
+services:
+  # Serviço da sua aplicação
+  app:
+    # Constrói a imagem a partir do Dockerfile no diretório atual.
+    # Isso é perfeito para a sua aplicação Python/FastAPI.
+    build: . # Constroi a imagem a partir do Dockerfile na raiz do projeto
+    container_name: minha-fastapi-app
+    # Mapeia a porta 8000 do seu computador para a porta 8000 do contêiner,
+    # onde o Uvicorn está rodando.
+    ports:
+      - "8000:8000"
+    # Monta o diretório atual no diretório /app do contêiner.
+    # Essencial para que a flag '--reload' do Uvicorn funcione,
+    # pois as alterações no seu código local serão refletidas
+    # instantaneamente dentro do contêiner.
+    volumes:
+      - .:/app
+    
